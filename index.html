@@ -1,0 +1,114 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquary task</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        .row:nth-child(even) {
+            background-color: rgb(0 255 250);
+          border-style:ridge; 
+          border-color: #ab00ff;
+        }
+
+        .row{
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="color:rgb(0, 46, 114);text-align:center; background-color:rgb(136, 132, 189); font-family: cursive; padding-top: 10px;">Cart Exmaple</h1>
+      <br><br>
+    <div class="row">
+        <div class="col-3">
+            <h3 style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: rgb(109, 29, 238);">Item</h3>
+        </div>
+        <div class="col-3">
+            <h3 style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: rgb(109, 29, 238);">Unit Price</h3>
+        </div>
+        <div class="col-3">
+            <h3 style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: rgb(109, 29, 238);">Quantity</h3>
+        </div>
+        <div class="col-3">
+            <h3 style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: rgb(109, 29, 238);">Total Price</h3>
+        </div>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-3"  style="font-size:larger; font-family:Verdana, Geneva, Tahoma, sans-serif; color: rgb(109, 29, 238); ">Chepsi</div>
+        <div class="col-3 itemPrice" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">4</div>
+        <div class="col-3"><input type="number" min="1" value="1" style="background-color:rgb(136, 132, 189);  text-align: center; color: rgb(0, 217, 255);"></div>
+        <div class="col-3 itemTotal" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">000</div>
+    </div>
+
+    <div class="row">
+        <div class="col-3"  style="font-size:larger; font-family:Verdana, Geneva, Tahoma, sans-serif; color: rgb(109, 29, 238);">Sweets</div>
+        <div class="col-3 itemPrice" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">5</div>
+        <div class="col-3"><input type="number" min="1" value="1" style="background-color:rgb(136, 132, 189); text-align: center; color: rgb(0, 217, 255);"></div>
+        <div class="col-3 itemTotal" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">000</div>
+    </div>
+
+    <div class="row">
+      <div class="col-3"  style="font-size:larger; font-family:Verdana, Geneva, Tahoma, sans-serif; color: rgb(109, 29, 238);">canned food</div>
+      <div class="col-3 itemPrice" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">6</div>
+      <div class="col-3"><input type="number" min="1" value="1"  style="background-color:rgb(136, 132, 189);  text-align: center; color: rgb(0, 217, 255);"></div>
+      <div class="col-3 itemTotal" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">000</div>
+    </div>
+
+    <div class="row">
+        <div class="col-3" style="font-size:larger; font-family:Verdana, Geneva, Tahoma, sans-serif; color: rgb(109, 29, 238);">Pepsi</div>
+        <div class="col-3 itemPrice" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">3</div>
+        <div class="col-3"><input type="number" min="1" value="1" style="background-color:rgb(136, 132, 189); text-align: center; color: rgb(0, 217, 255);"></div>
+        <div class="col-3 itemTotal" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">000</div>
+    </div>
+
+    
+  <br>
+  <br>
+
+    <div class="row" style="display:flex; justify-content: center;">
+        <h2 style="color:rgb(0, 46, 114);text-align:center; background-color:rgb(136, 132, 189); font-family:fantasy; width: 15%; display: flex; justify-content: center; ">Cart Total <span id="cartTotal">000</span></h2>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("input").each(function () {
+                calculateItemTotal(this);
+            });
+        });
+
+
+        $("input").change(function () {
+            calculateItemTotal(this);
+        });
+
+        function calculateItemTotal(item) {
+            var quantity = $(item).val();
+            var price = $(item).parent().parent().children(".itemPrice").text();
+            var itemTotal = quantity * price;
+            $(item).parent().parent().children(".itemTotal").text(itemTotal);
+
+            var cartTotal = 0;
+            $(".itemTotal").each(function(){
+                cartTotal += parseFloat($(this).text());
+            });
+            $("#cartTotal").text(cartTotal);
+        }
+    </script>
+</body>
+
+</html>
